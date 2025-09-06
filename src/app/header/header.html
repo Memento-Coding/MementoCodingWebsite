@@ -1,7 +1,146 @@
-<header class="header-container">
-    <div class="logo">
-        <a href="/">
-            <img src="/MementoCodingWebsite/public/logo.png" alt="Memento Coding Logo"/>
-        </a>
+<header
+  class="fixed top-0 left-0 w-full bg-white dark:bg-gray-900 shadow-md dark:shadow-gray-800 z-50 transition-colors duration-300"
+>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+    <div class="flex-shrink-0 flex items-center">
+      <img
+        [src]="isDarkMode ? 'logo-dark.png' : 'logo.png'"
+        alt="Memento Coding Logo"
+        class="h-8 w-auto transition-opacity duration-300 hover:opacity-80"
+      />
     </div>
+
+    <ul class="hidden md:flex space-x-8 font-medium">
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="text-brand-600 dark:text-brand-400"
+          class="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/products"
+          routerLinkActive="text-brand-600 dark:text-brand-400"
+          class="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200"
+          >Products</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/products"
+          routerLinkActive="text-brand-600 dark:text-brand-400"
+          class="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200"
+          >Services</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/products"
+          routerLinkActive="text-brand-600 dark:text-brand-400"
+          class="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200"
+          >About Us</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/contact"
+          routerLinkActive="text-brand-600 dark:text-brand-400"
+          class="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200"
+          >Contact</a
+        >
+      </li>
+    </ul>
+
+    <div class="hidden md:flex items-center space-x-4">
+      <button
+        class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
+        aria-label="Search"
+      >
+        <ng-icon [name]="heroSearch" class="w-5 h-5"></ng-icon>
+      </button>
+
+      <button
+        (click)="toggleDarkMode()"
+        class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-all duration-200 transform hover:scale-110"
+        aria-label="Toggle Dark Mode"
+      >
+        <ng-icon
+          [name]="isDarkMode ? heroSun : heroMoon"
+          class="w-5 h-5 transition-transform duration-300"
+          [class.rotate-180]="isDarkMode"
+        ></ng-icon>
+      </button>
+      <button
+        class="bg-brand-600 dark:bg-brand-500 text-white px-6 py-2 rounded-lg hover:bg-brand-700 dark:hover:bg-brand-600 transition-all duration-200 transform hover:scale-105 shadow-md"
+      >
+        Start Now
+      </button>
+    </div>
+
+    <button
+      (click)="toogleMenu()"
+      class="md:hidden p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none transition-colors duration-200"
+      aria-label="Open menu"
+    >
+    @if(!menuOpen){
+      <ng-icon [name]="heroMenu" class="w-6 h-6"></ng-icon>
+    }
+    </button>
+
+    @if(menuOpen){
+    <div
+      class="md:hidden fixed inset-0 z-40 bg-black/50 backdrop:blur-sm"
+      (click)="closeMenu()"
+    ></div>
+    <div class="md:hidden fixed top-0 left-0 right-0 bottom-0 z-50 pt-16">
+      <div class="bg-white dark:bg-slate-900 h-full shadow-2xl animate-slide-down">
+        <div class="flex items-center justify-between px-4 py-3">
+          <span class="text-lg font-semibold text-slate-900 dark:text-white">Menú</span>
+          <button (click)="closeMenu()"
+                  class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none transition-colors duration-200">
+            <ng-icon [name]="heroX" class="w-5 h-5"></ng-icon>
+          </button>
+        </div>
+
+        <div class="px-4 py-4 space-y-2 h-full overflow-y-auto pb-20">
+          <a
+            routerLink="/"
+            routerLinkActive="font-bold text-blue-600 dark:text-blue-400"
+            class="block text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 py-2 transition-colors duration-200"
+            (click)="closeMenu()"
+          >
+            Inicio
+          </a>
+          <a
+            routerLink="/services"
+            routerLinkActive="font-bold text-blue-600 dark:text-blue-400"
+            class="block text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 py-2 transition-colors duration-200"
+            (click)="closeMenu()"
+          >
+            Servicios
+          </a>
+          <a
+            routerLink="/about"
+            routerLinkActive="font-bold text-blue-600 dark:text-blue-400"
+            class="block text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 py-2 transition-colors duration-200"
+            (click)="closeMenu()"
+          >
+            Nosotros
+          </a>
+          <a
+            routerLink="/contact"
+            routerLinkActive="font-bold text-brand-600 dark:text-brand-400"
+            class="block text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 py-2 transition-colors duration-200"
+            (click)="closeMenu()"
+          >
+            Contacto
+          </a>
+        </div>
+      </div>
+    </div>
+
+    }
+  </nav>
 </header>
