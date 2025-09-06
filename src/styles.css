@@ -1,4 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@theme {
+  --color-brand-50: #e6ffe8;
+  --color-brand-100: #b8ffc9;
+  --color-brand-200: #8affaa;
+  --color-brand-300: #5cff8b;
+  --color-brand-400: #2eff6c;
+  --color-brand-500: #01ff70; /* color base */
+  --color-brand-600: #00cc5a;
+  --color-brand-700: #009944;
+  --color-brand-800: #00662e;
+  --color-brand-900: #003319;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
