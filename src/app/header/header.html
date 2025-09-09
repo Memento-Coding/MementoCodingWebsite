@@ -78,15 +78,15 @@
         Start Now
       </button>
     </div>
-
+    <!-- Mobile menu -->
     <button
       (click)="toogleMenu()"
       class="md:hidden p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none transition-colors duration-200"
       aria-label="Open menu"
     >
-    @if(!menuOpen){
+      @if(!menuOpen){
       <ng-icon [name]="heroMenu" class="w-6 h-6"></ng-icon>
-    }
+      }
     </button>
 
     @if(menuOpen){
@@ -98,8 +98,10 @@
       <div class="bg-white dark:bg-slate-900 h-full shadow-2xl animate-slide-down">
         <div class="flex items-center justify-between px-4 py-3">
           <span class="text-lg font-semibold text-slate-900 dark:text-white">Menú</span>
-          <button (click)="closeMenu()"
-                  class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none transition-colors duration-200">
+          <button
+            (click)="closeMenu()"
+            class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-400 focus:outline-none transition-colors duration-200"
+          >
             <ng-icon [name]="heroX" class="w-5 h-5"></ng-icon>
           </button>
         </div>
@@ -137,6 +139,30 @@
           >
             Contacto
           </a>
+          <div class="flex items-center justify-between pt-4">
+            <button
+              (click)="toggleDarkMode()"
+              class="flex items-center space-x-2 p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 transition-colors duration-200"
+            >
+              @if(isDarkMode){
+              <ng-icon [name]="heroMoon" class="w-5 h-5"></ng-icon>
+              }@else{
+              <ng-icon [name]="heroSun" class="w-5 h-5"></ng-icon>
+              }
+              <span class="text-sm">{{ !isDarkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+            </button>
+          </div>
+          <button
+            class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200"
+          >
+            <ng-icon [name]="heroSearch"></ng-icon>
+          </button>
+
+          <button
+            class="w-full bg-brand-600 dark:bg-brand-500 text-white px-6 py-3 rounded-lg hover:bg-brand-700 dark:hover:bg-brand-600 transition-all duration-200 mt-4 shadow-md"
+          >
+            Start Now
+          </button>
         </div>
       </div>
     </div>
