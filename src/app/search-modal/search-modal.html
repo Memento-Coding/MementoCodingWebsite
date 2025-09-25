@@ -1,0 +1,164 @@
+@if(isOpen){
+    <div class="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 z-50 animate-fade-in" (click)="closeSearch()">
+        <div class="fixed inset-x-0 top-0 z-50" (click)="$event.stopPropagation()">
+            <div class="max-w-3xl mx-auto mt-16 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl animate-slide-down">
+            
+            <!-- Header con campo de búsqueda -->
+            <div class="flex items-center p-4 border-b dark:border-gray-700">
+                <div class="flex-1 relative">
+                <!-- Icono de lupa -->
+                <ng-icon [name]="heroMagnifyingGlass" 
+                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
+                
+                <!-- Campo de entrada de búsqueda -->
+                <input #searchInput
+                        [(ngModel)]="searchQuery"
+                        (input)="onSearchInput($event)"
+                        (keydown.escape)="closeSearch()"
+                        (keydown.arrowDown)="navigateResults('down')"
+                        (keydown.arrowUp)="navigateResults('up')"
+                        (keydown.enter)="selectResult()"
+                        type="text"
+                        placeholder="Buscar servicios, páginas, contenido..."
+                        class="w-full pl-10 pr-4 py-3 text-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:text-white dark:placeholder-gray-400 transition-all duration-200"
+                        autocomplete="off" />
+                
+                <!-- Spinner de carga -->
+                @if(isSearching){
+                    <div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <div class="animate-spin rounded-full h-5 w-5 border-2 border-blue-500 border-t-transparent"></div>
+                </div>
+                }
+                
+                </div>
+
+                <!-- Botón para cerrar -->
+                <button (click)="closeSearch()"
+                        class="ml-3 p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200">
+                <ng-icon [name]="heroXMark" class="w-6 h-6" />
+                </button>
+            </div>
+
+            <!-- Contenido principal del modal -->
+            <div class="max-h-96 overflow-y-auto">
+                
+                <!-- Búsquedas recientes (cuando no hay consulta activa) -->
+                <div *ngIf="!searchQuery && recentSearches.length > 0" class="p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300">Búsquedas Recientes</h3>
+                    <button (click)="clearRecent()"
+                            class="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors duration-200">
+                    Limpiar
+                    </button>
+                </div>
+                
+                <!-- Lista de búsquedas recientes -->
+                <div class="space-y-1">
+                    <button *ngFor="let recent of recentSearches; let i = index"
+                            (click)="searchFromRecent(recent)"
+                            [class.bg-blue-50]="selectedIndex === i"
+                            [class.dark:bg-blue-900/20]="selectedIndex === i"
+                            class="w-full flex items-center px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors duration-150">
+                    <ng-icon [name]="heroClockRotateLeft" class="w-4 h-4 text-gray-400 dark:text-gray-500 mr-3" />
+                    <span class="text-gray-700 dark:text-gray-300">{{ recent }}</span>
+                    </button>
+                </div>
+                </div>
+
+                <!-- Resultados de búsqueda -->
+                <div *ngIf="searchQuery && searchResults.length > 0" class="p-4">
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Resultados ({{ searchResults.length }})
+                </h3>
+                
+                <!-- Lista de resultados -->
+                <div class="space-y-1">
+                    <button *ngFor="let result of searchResults; let i = index"
+                            (click)="selectSearchResult(result)"
+                            [class.bg-blue-50]="selectedIndex === i"
+                            [class.dark:bg-blue-900/20]="selectedIndex === i"
+                            class="w-full flex items-start px-3 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-all duration-150 group">
+                    
+                    <!-- Icono del resultado -->
+                    <div class="flex-shrink-0 mr-3 mt-1">
+                        <ng-icon [name]="result.icon || heroDocumentText" 
+                                class="w-5 h-5 text-gray-400 dark:text-gray-500 group-hover:text-blue-500 transition-colors duration-200" />
+                    </div>
+                    
+                    <!-- Contenido del resultado -->
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center justify-between">
+                        <h4 class="text-sm font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                            {{ result.title }}
+                        </h4>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2 flex-shrink-0">
+                            {{ result.category }}
+                        </span>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                        {{ result.description }}
+                        </p>
+                    </div>
+
+                    <!-- Flecha de navegación -->
+                    <div class="flex-shrink-0 ml-2 mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <ng-icon [name]="heroArrowUpRight" class="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                    </div>
+                    </button>
+                </div>
+                </div>
+
+                <!-- Estado sin resultados -->
+                @if(searchQuery && searchResults.length === 0 && !isSearching){
+                    <div *ngIf="" 
+                        class="p-8 text-center">
+                    <ng-icon [name]="heroMagnifyingGlass" class="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        No se encontraron resultados
+                    </h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Intenta con diferentes palabras clave
+                    </p>
+                    </div>
+                }
+
+
+                <!-- Estado inicial vacío -->
+                @if(!searchQuery && recentSearches.length === 0){
+                <div *ngIf="" 
+                    class="p-8 text-center">
+                <ng-icon [name]="heroMagnifyingGlass" class="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Busca en Memento Coding
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Encuentra servicios, páginas y contenido rápidamente
+                </p>
+                </div>
+                }
+
+            </div>
+
+            <!-- Footer con atajos de teclado -->
+            <div class="px-4 py-3 bg-gray-50 dark:bg-gray-750 border-t dark:border-gray-700 rounded-b-2xl">
+                <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex items-center space-x-4">
+                    <span class="flex items-center">
+                    <kbd class="px-1.5 py-0.5 bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded text-xs">↵</kbd>
+                    <span class="ml-1">para seleccionar</span>
+                    </span>
+                    <span class="flex items-center">
+                    <kbd class="px-1.5 py-0.5 bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded text-xs">↑↓</kbd>
+                    <span class="ml-1">para navegar</span>
+                    </span>
+                </div>
+                <span class="flex items-center">
+                    <kbd class="px-1.5 py-0.5 bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded text-xs">ESC</kbd>
+                    <span class="ml-1">para cerrar</span>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+}
