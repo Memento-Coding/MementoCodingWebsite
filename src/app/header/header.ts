@@ -4,16 +4,18 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DarkModeService } from '../services/dark-mode';
 import { NgIcon } from '@ng-icons/core';
 import { Subject, Subscription, takeUntil } from 'rxjs';
+import { SearchModal } from '../search-modal/search-modal';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, NgIcon],
+  imports: [RouterLink, RouterLinkActive, NgIcon, SearchModal],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
 })
 export class Header implements OnInit, OnDestroy {
   menuOpen = false;
   isDarkMode = false;
+  searchModalOpen = false;
 
   heroSun = 'heroSun';
   heroMoon = 'heroMoon';
@@ -41,8 +43,16 @@ export class Header implements OnInit, OnDestroy {
   closeMenu() {
     this.menuOpen = false;
   }
-  
+
   toggleDarkMode(): void {
     this.darkModeService.toggleDarkMode();
+  }
+
+  openSearch(): void {
+    this.searchModalOpen = true;
+  }
+
+  closeSearch(): void {
+    this.searchModalOpen = false;
   }
 }
