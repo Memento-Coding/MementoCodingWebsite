@@ -19,6 +19,11 @@ import {
   heroUsers,
   heroDevicePhoneMobile,
   heroGlobeAlt,
+  heroArrowRight,
+  heroPlayCircle,
+  heroCodeBracket,
+  heroRocketLaunch,
+  heroSparkles,
 } from '@ng-icons/heroicons/outline';
 
 @Component({
@@ -39,7 +44,12 @@ import {
       heroEnvelope,
       heroUsers,
       heroDevicePhoneMobile,
-      heroGlobeAlt
+      heroGlobeAlt,
+      heroArrowRight,
+      heroPlayCircle,
+      heroCodeBracket,
+      heroRocketLaunch,
+      heroSparkles
     }),
   ],
   templateUrl: './app.html',
