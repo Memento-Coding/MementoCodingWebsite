@@ -1,12 +1,46 @@
 <section class="py-24 bg-gray-50 dark:bg-gray-800/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                Our services
-            </h2>
-            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                We offer comprehensive technological solutions to take your business to the next level.
-            </p>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Nuestros Servicios
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        Ofrecemos soluciones tecnológicas integrales para llevar tu negocio al siguiente nivel
+      </p>
     </div>
+    
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div 
+        *ngFor="let feature of features; let i = index" 
+        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up"
+        [style.animation-delay]="(i * 0.1) + 's'">
+        
+        <!-- Icon -->
+        <div class="relative mb-6">
+          <div [class]="'absolute inset-0 bg-gradient-to-r ' + feature.color + ' rounded-xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300'"></div>
+          <div [class]="'relative w-16 h-16 bg-gradient-to-r ' + feature.color + ' rounded-xl flex items-center justify-center'">
+            <ng-icon [name]="feature.icon" class="w-8 h-8 text-white"></ng-icon>
+          </div>
+        </div>
+        
+        <!-- Content -->
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors duration-300">
+          {{ feature.title }}
+        </h3>
+        
+        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+          {{ feature.description }}
+        </p>
+        
+        <!-- Hover arrow -->
+        <div class="mt-6 flex items-center text-brand-600 dark:text-brand-400 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-[-10px] group-hover:translate-x-0">
+          <span class="text-sm font-medium mr-2">Saber más</span>
+          <ng-icon name="heroArrowRight" class="w-4 h-4"></ng-icon>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

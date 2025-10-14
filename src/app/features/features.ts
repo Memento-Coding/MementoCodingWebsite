@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { NgIcon } from "@ng-icons/core";
 
 interface Feature {
+  id: number;
   icon: string;
   title: string;
   description: string;
@@ -10,13 +12,15 @@ interface Feature {
 
 @Component({
   selector: 'app-features',
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
   templateUrl: './features.html',
   styleUrl: './features.css',
+  standalone: true,
 })
 export class Features {
   features: Feature[] = [
     {
+      id: 1,
       icon: 'heroGlobeAlt',
       title: 'Software Development',
       description:
@@ -24,6 +28,7 @@ export class Features {
       color: 'from-blue-500 to-cyan-500',
     },
     {
+      id: 2,
       icon: 'heroDevicePhoneMobile',
       title: 'Mobile Apps',
       description:
@@ -31,6 +36,7 @@ export class Features {
       color: 'from-purple-500 to-pink-500',
     },
     {
+      id: 3,
       icon: 'heroCloudArrowUp',
       title: 'Cloud & DevOps',
       description:
@@ -38,6 +44,7 @@ export class Features {
       color: 'from-green-500 to-emerald-500',
     },
     {
+      id: 4,
       icon: 'heroCpuChip',
       title: 'IA & Machine Learning',
       description:
@@ -45,6 +52,7 @@ export class Features {
       color: 'from-orange-500 to-red-500',
     },
     {
+      id: 5,
       icon: 'heroShieldCheck',
       title: 'Cybersecurity',
       description:
@@ -52,6 +60,7 @@ export class Features {
       color: 'from-indigo-500 to-purple-500',
     },
     {
+      id: 6,
       icon: 'heroCog8Tooth',
       title: 'Tech consulting',
       description:

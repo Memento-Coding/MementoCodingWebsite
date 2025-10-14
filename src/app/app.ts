@@ -24,6 +24,10 @@ import {
   heroCodeBracket,
   heroRocketLaunch,
   heroSparkles,
+  heroCloudArrowUp,
+  heroCpuChip,
+  heroShieldCheck,
+  heroCog8Tooth,
 } from '@ng-icons/heroicons/outline';
 
 @Component({
@@ -49,7 +53,11 @@ import {
       heroPlayCircle,
       heroCodeBracket,
       heroRocketLaunch,
-      heroSparkles
+      heroSparkles,
+      heroCloudArrowUp,
+      heroCpuChip,
+      heroShieldCheck,
+      heroCog8Tooth
     }),
   ],
   templateUrl: './app.html',
