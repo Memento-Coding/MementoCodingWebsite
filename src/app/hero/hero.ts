@@ -1,25 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { LayoutModule } from '@angular/cdk/layout';
+import { NgIcon } from '@ng-icons/core';
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, LayoutModule],
+  imports: [CommonModule, LayoutModule, NgIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
 export class Hero {
-  isSmallScreen = false;
-  constructor(private breakpointObserver: BreakpointObserver) {
-    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
-      this.isSmallScreen = result.matches;
-    });
-  }
-  protected readonly title = signal('Memento Coding - Agile software development');
-  protected readonly subtitle = signal(
-    'We build high-quality software solutions tailored to your business needs.'
-  );
-  protected readonly ctaText = signal('Get Started');
+  heroArrowRight = 'heroArrowRight';
+  heroPlayCircle = 'heroPlayCircle';
+  heroCodeBracket = 'heroCodeBracket';
+  heroRocketLaunch = 'heroRocketLaunch';
+  heroSparkles = 'heroSparkles';
 }
