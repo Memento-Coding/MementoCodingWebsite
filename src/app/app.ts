@@ -28,11 +28,19 @@ import {
   heroCpuChip,
   heroShieldCheck,
   heroCog8Tooth,
+  heroStar,
+  heroChevronLeft,
+  heroChevronRight,
+  heroSquare2Stack,
+  heroPhone,
+  heroMapPin,
 } from '@ng-icons/heroicons/outline';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Hero, Features, Testimonials, Footer],
+  imports: [Header, Hero, Features, Testimonials, Footer, FontAwesomeModule],
   standalone: true,
   providers: [
     provideIcons({
@@ -57,7 +65,13 @@ import {
       heroCloudArrowUp,
       heroCpuChip,
       heroShieldCheck,
-      heroCog8Tooth
+      heroCog8Tooth,
+      heroStar,
+      heroChevronLeft,
+      heroChevronRight,
+      heroSquare2Stack,
+      heroPhone,
+      heroMapPin
     }),
   ],
   templateUrl: './app.html',
@@ -65,4 +79,5 @@ import {
 })
 export class App {
   protected readonly title = signal('memento-coding-website');
+  
 }
